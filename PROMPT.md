@@ -76,21 +76,60 @@
 
 ---
 
-## `/bhelp` 命令规范
+## `/b` 快捷命令规范
 
-用户输入 `/bhelp` 时，按 [SKILL.md 第 3 章](./web-project-flow/SKILL.md) 规范输出索引：
+### 单提示词命令（直接加载并执行）
+
+| 命令 | 加载文件 | 用途 |
+|---|---|---|
+| `/bstart` | [01-project-start.md](./web-project-flow/references/01-project-start.md) | 项目起步 |
+| `/bfuzzy` | [02-fuzzy-idea-to-plan.md](./web-project-flow/references/02-fuzzy-idea-to-plan.md) | 模糊想法落地 10 步 |
+| `/bui` | [03-ui-design-rules.md](./web-project-flow/references/03-ui-design-rules.md) | UI 设计规则 |
+| `/bhardcode` | [04-no-hardcode-fake-data.md](./web-project-flow/references/04-no-hardcode-fake-data.md) | 铁律①禁硬编码 |
+| `/bconfig` | [05-config-to-backend.md](./web-project-flow/references/05-config-to-backend.md) | 铁律②配置后台化 |
+| `/bhaluc` | [06-anti-hallucination.md](./web-project-flow/references/06-anti-hallucination.md) | 铁律③防幻觉 |
+| `/bonboard` | [07-ai-onboarding.md](./web-project-flow/references/07-ai-onboarding.md) | AI 对接引导 |
+| `/baudit` | [08-project-audit.md](./web-project-flow/references/08-project-audit.md) | 项目全方位检查 |
+| `/bdocs` | [09-docs-lifecycle.md](./web-project-flow/references/09-docs-lifecycle.md) | 文档维护规范 |
+| `/bhandover` | [10-handover-docs.md](./web-project-flow/references/10-handover-docs.md) | 交接文档生成 |
+| `/bdeploy` | [11-github-auto-update.md](./web-project-flow/references/11-github-auto-update.md) | GitHub 自动更新 |
+
+### `/bhelp` 索引命令
 
 | 输入 | 行为 |
 |---|---|
 | `/bhelp` | 输出 11 份提示词完整索引表 |
 | `/bhelp all` | 同 `/bhelp` |
-| `/bhelp <编号>` | 输出对应编号的提示词完整内容（调用 Read 读取文件） |
+| `/bhelp <编号>` | 输出对应编号的提示词完整内容 |
 | `/bhelp <关键词>` | 按关键词命中表输出匹配清单 |
 
-**规则**：
-- 不调用业务工具，不修改文件，不启动开发流程
-- 仅展示索引或对应提示词内容
-- 输出完成后主动询问：「需要我加载哪一份提示词并开始执行吗？」
+### 执行规则
+
+1. **加载方式**：调用 Read 读取对应 `references/XX-xxx.md` 完整内容
+2. **加载后行为**：按提示词内指引开始执行（`/bstart` → 立即按模板对齐需求；`/baudit` → 立即询问项目路径）
+3. **铁律叠加**：
+   - 输入 `/bhardcode` / `/bconfig` / `/bhaluc` 任一 → 该铁律进入本次会话硬约束
+   - 输入涉及代码生成的命令（`/bstart`、`/bui`、`/bdeploy` 等）→ **自动连带加载**铁律三件套 `04 + 05 + 06`
+4. **链式调用**：空格分隔，如 `/bstart /bui` 或 `/bhardcode /bconfig /bhaluc`
+5. **未识别命令**：输入的 `/bXXX` 不在清单内 → 回复「未识别的命令，输入 `/bhelp` 查看所有可用命令」
+6. **执行确认**：加载完成后主动告诉用户当前已加载哪份提示词，并简述下一步将做什么
+
+### 命令速查
+
+```
+/bstart                          # 起步
+/bfuzzy                          # 模糊想法落地
+/bui                             # UI 设计
+/bhardcode /bconfig /bhaluc      # 三铁律一次性加载
+/bonboard                        # AI 接手新项目
+/baudit                          # 项目全方位检查
+/bdocs                           # 同步更新四份文档
+/bhandover                       # 生成交接文档
+/bdeploy                         # 配置 GitHub 自动更新
+/bhelp                           # 查看全部索引
+/bhelp 05                        # 查看 05 号提示词完整内容
+/bhelp 硬编码                     # 关键词搜索
+```
 
 ---
 
