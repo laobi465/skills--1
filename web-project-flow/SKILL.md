@@ -5,6 +5,10 @@ description: |
 
   何时使用：
   - 用户输入 `/bhelp` → 输出本 Skill 所有可用提示词的索引清单（详见下方「/bhelp 命令」章节）
+  - 用户输入单提示词快捷命令 → 加载对应提示词并执行（详见「快捷命令清单」章节）：
+    /bstart (01 起步) /bfuzzy (02 模糊想法) /bui (03 UI设计) /bhardcode (04 禁硬编码铁律)
+    /bconfig (05 配置后台化铁律) /bhaluc (06 防幻觉铁律) /bonboard (07 AI对接)
+    /baudit (08 项目检查) /bdocs (09 文档维护) /bhandover (10 交接文档) /bdeploy (11 GitHub自动更新)
   - 用户说「我要做一个网站」「帮我想做一个 XX 网站」「我有个想法，能不能帮我落地」→ 启动全流程起步（references/01 或 02）
   - 用户说「设计 UI / 配色 / 页面风格」→ 调用 UI 设计规则（references/03）
   - 用户进入开发阶段，或要求写业务代码 → **必须先加载** 铁律（references/04 + 05 + 06）
@@ -162,7 +166,56 @@ description: |
 - 仅展示索引或对应提示词内容
 - 输出完成后，**主动询问**：「需要我加载哪一份提示词并开始执行吗？」
 
-### 3.5 全流程起步（用户表达"做网站"意图）
+### 3.5 快捷命令清单（单提示词直接加载）
+
+每个提示词对应一个 `/b` 前缀的快捷命令。用户输入命令时，**直接调用 Read 读取对应 reference 文件，加载完整内容到上下文并按其指引开始执行**（不再走 `/bhelp` 的索引流程）。
+
+| 命令 | 编号 | 提示词 | 加载文件 |
+|---|---|---|---|
+| `/bstart` | 01 | 项目起步提示词 | [references/01-project-start.md](references/01-project-start.md) |
+| `/bfuzzy` | 02 | 模糊想法落地 10 步流程 | [references/02-fuzzy-idea-to-plan.md](references/02-fuzzy-idea-to-plan.md) |
+| `/bui` | 03 | 现代简约 UI 设计规则 | [references/03-ui-design-rules.md](references/03-ui-design-rules.md) |
+| `/bhardcode` | 04 | 铁律①：禁硬编码假数据 | [references/04-no-hardcode-fake-data.md](references/04-no-hardcode-fake-data.md) |
+| `/bconfig` | 05 | 铁律②：配置后台化 sys_config | [references/05-config-to-backend.md](references/05-config-to-backend.md) |
+| `/bhaluc` | 06 | 铁律③：防 AI 幻觉 | [references/06-anti-hallucination.md](references/06-anti-hallucination.md) |
+| `/bonboard` | 07 | AI 对接新项目引导 | [references/07-ai-onboarding.md](references/07-ai-onboarding.md) |
+| `/baudit` | 08 | 项目全方位深度检查 | [references/08-project-audit.md](references/08-project-audit.md) |
+| `/bdocs` | 09 | 四份核心文档维护规范 | [references/09-docs-lifecycle.md](references/09-docs-lifecycle.md) |
+| `/bhandover` | 10 | 项目交接文档生成 | [references/10-handover-docs.md](references/10-handover-docs.md) |
+| `/bdeploy` | 11 | GitHub 自动更新管理系统 | [references/11-github-auto-update.md](references/11-github-auto-update.md) |
+| `/bhelp` | — | 提示词索引 | 见 §3.1 ~ §3.4 |
+
+#### 命令执行规则
+
+1. **加载方式**：使用 Read 工具读取对应 `references/XX-xxx.md` 文件完整内容
+2. **加载后行为**：按提示词内的指引开始执行（如 `/bstart` 加载后立即按完整版/精简版模板与用户对齐需求；`/baudit` 加载后立即询问项目路径）
+3. **铁律叠加**：
+   - 输入 `/bhardcode` / `/bconfig` / `/bhaluc` 任一命令 → 该铁律进入本次会话硬约束
+   - 输入涉及代码生成的命令（如 `/bstart`、`/bui`、`/bdeploy`）→ **自动连带加载**铁律三件套 `04 + 05 + 06`
+4. **组合命令**：支持空格分隔的链式调用，如：
+   - `/bstart /bui` → 先加载 01，再叠加 03
+   - `/bhardcode /bconfig /bhaluc` → 三铁律一次性加载
+5. **未识别命令**：如果输入的 `/bXXX` 不在清单内，回复「未识别的命令，输入 `/bhelp` 查看所有可用命令」
+6. **执行确认**：加载完成后，**主动告诉用户**当前已加载哪份提示词，并简述下一步将做什么
+
+#### 命令速查示例
+
+```
+/bstart              # 起步：项目类型 + 功能清单
+/bstart /bui         # 起步 + 设计 UI 风格
+/bfuzzy              # 模糊想法落地 10 步
+/bhardcode           # 加载铁律①禁硬编码
+/bhardcode /bconfig /bhaluc   # 三铁律一次性加载
+/bonboard            # AI 接手新项目
+/baudit              # 项目全方位检查
+/bdocs               # 同步更新四份文档
+/bhandover           # 生成交接文档
+/bdeploy             # 配置 GitHub 自动更新
+/bhelp               # 查看全部索引
+/bhelp 05            # 查看 05 号提示词完整内容
+```
+
+### 3.6 全流程起步（用户表达"做网站"意图）
 
 1. **判断明确度**：
    - 用户给了网站类型 + 功能清单 → 走 `references/01` 完整版模板
@@ -173,11 +226,11 @@ description: |
 5. **项目收尾**：走 `references/10` 生成交接文档
 6. **部署阶段**：走 `references/11` 配置 GitHub 自动更新
 
-### 3.6 单点按需调用
+### 3.7 单点按需调用
 
 用户直接表达某个具体意图（如"检查项目"、"生成 README"、"配置 Webhook"）时，按上方路由表加载对应 reference，**不需要走全流程**。
 
-### 3.7 铁律强制加载时机
+### 3.8 铁律强制加载时机
 
 **只要本次会话涉及代码生成 / 修改，必须主动加载以下三份铁律到上下文，无需用户提示：**
 

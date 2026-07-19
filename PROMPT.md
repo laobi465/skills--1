@@ -53,7 +53,7 @@
 - 修改代码前先确认理解了原有逻辑
 - 保持现有代码风格和命名规范
 - 任何代码生成前先确认铁律已加载
-- 涉及需求变更时，按 [09-docs-lifecycle.md](./web-project-flow/references/09-docs-lifecycle.md) 联动更新四份文档
+- 涉及需求变更时，及时更新 [README.md](./README.md) 和 [PROMPT.md](./PROMPT.md)（如本仓库结构/能力有变化）
 - 完成任务后，主动告诉用户下一步可以做什么
 
 ---
@@ -76,36 +76,75 @@
 
 ---
 
-## `/bhelp` 命令规范
+## `/b` 快捷命令规范
 
-用户输入 `/bhelp` 时，按 [SKILL.md 第 3 章](./web-project-flow/SKILL.md) 规范输出索引：
+### 单提示词命令（直接加载并执行）
+
+| 命令 | 加载文件 | 用途 |
+|---|---|---|
+| `/bstart` | [01-project-start.md](./web-project-flow/references/01-project-start.md) | 项目起步 |
+| `/bfuzzy` | [02-fuzzy-idea-to-plan.md](./web-project-flow/references/02-fuzzy-idea-to-plan.md) | 模糊想法落地 10 步 |
+| `/bui` | [03-ui-design-rules.md](./web-project-flow/references/03-ui-design-rules.md) | UI 设计规则 |
+| `/bhardcode` | [04-no-hardcode-fake-data.md](./web-project-flow/references/04-no-hardcode-fake-data.md) | 铁律①禁硬编码 |
+| `/bconfig` | [05-config-to-backend.md](./web-project-flow/references/05-config-to-backend.md) | 铁律②配置后台化 |
+| `/bhaluc` | [06-anti-hallucination.md](./web-project-flow/references/06-anti-hallucination.md) | 铁律③防幻觉 |
+| `/bonboard` | [07-ai-onboarding.md](./web-project-flow/references/07-ai-onboarding.md) | AI 对接引导 |
+| `/baudit` | [08-project-audit.md](./web-project-flow/references/08-project-audit.md) | 项目全方位检查 |
+| `/bdocs` | [09-docs-lifecycle.md](./web-project-flow/references/09-docs-lifecycle.md) | 文档维护规范 |
+| `/bhandover` | [10-handover-docs.md](./web-project-flow/references/10-handover-docs.md) | 交接文档生成 |
+| `/bdeploy` | [11-github-auto-update.md](./web-project-flow/references/11-github-auto-update.md) | GitHub 自动更新 |
+
+### `/bhelp` 索引命令
 
 | 输入 | 行为 |
 |---|---|
 | `/bhelp` | 输出 11 份提示词完整索引表 |
 | `/bhelp all` | 同 `/bhelp` |
-| `/bhelp <编号>` | 输出对应编号的提示词完整内容（调用 Read 读取文件） |
+| `/bhelp <编号>` | 输出对应编号的提示词完整内容 |
 | `/bhelp <关键词>` | 按关键词命中表输出匹配清单 |
 
-**规则**：
-- 不调用业务工具，不修改文件，不启动开发流程
-- 仅展示索引或对应提示词内容
-- 输出完成后主动询问：「需要我加载哪一份提示词并开始执行吗？」
+### 执行规则
+
+1. **加载方式**：调用 Read 读取对应 `references/XX-xxx.md` 完整内容
+2. **加载后行为**：按提示词内指引开始执行（`/bstart` → 立即按模板对齐需求；`/baudit` → 立即询问项目路径）
+3. **铁律叠加**：
+   - 输入 `/bhardcode` / `/bconfig` / `/bhaluc` 任一 → 该铁律进入本次会话硬约束
+   - 输入涉及代码生成的命令（`/bstart`、`/bui`、`/bdeploy` 等）→ **自动连带加载**铁律三件套 `04 + 05 + 06`
+4. **链式调用**：空格分隔，如 `/bstart /bui` 或 `/bhardcode /bconfig /bhaluc`
+5. **未识别命令**：输入的 `/bXXX` 不在清单内 → 回复「未识别的命令，输入 `/bhelp` 查看所有可用命令」
+6. **执行确认**：加载完成后主动告诉用户当前已加载哪份提示词，并简述下一步将做什么
+
+### 命令速查
+
+```
+/bstart                          # 起步
+/bfuzzy                          # 模糊想法落地
+/bui                             # UI 设计
+/bhardcode /bconfig /bhaluc      # 三铁律一次性加载
+/bonboard                        # AI 接手新项目
+/baudit                          # 项目全方位检查
+/bdocs                           # 同步更新四份文档
+/bhandover                       # 生成交接文档
+/bdeploy                         # 配置 GitHub 自动更新
+/bhelp                           # 查看全部索引
+/bhelp 05                        # 查看 05 号提示词完整内容
+/bhelp 硬编码                     # 关键词搜索
+```
 
 ---
 
-## 文档体系维护
+## 文档清单
 
-仓库维护以下核心文档，按 [09-docs-lifecycle.md](./web-project-flow/references/09-docs-lifecycle.md) 规范联动更新：
+本仓库维护以下文档：
 
-| 文档 | 路径 | 作用 |
-|---|---|---|
-| `README.md` | 仓库根 | 项目介绍、目录结构、使用方式（给人类看） |
-| `PROMPT.md` | 仓库根 | AI 对接引导、开发规范、路由表（给 AI 看） |
-| `CHANGELOG.md` | （按需创建） | 更新日志 |
-| `PROJECT.md` | （按需创建） | 项目文档 |
-| `SPEC.md` | （按需创建） | 规范文档 |
-| `TODO.md` | （按需创建） | 待办清单 |
+| 文档 | 路径 | 给谁看 | 作用 |
+|---|---|---|---|
+| `README.md` | 仓库根 | 人类 | 项目介绍、目录结构、使用方式 |
+| `PROMPT.md` | 仓库根 | AI | 本文件：AI 对接引导、铁律、路由表、命令规范 |
+| `SKILL.md` | `web-project-flow/` | AI | Skill 主入口：description、路由、命令清单 |
+| `references/` | `web-project-flow/` | AI | 11 份提示词原文 |
+
+> 注：`references/09-docs-lifecycle.md` 描述的四份文档（CHANGELOG/PROJECT/SPEC/TODO）规范**仅作为提示词内容保留**，本仓库不主动维护这四份文档。如需启用，按提示词内的规范创建即可。
 
 ---
 
@@ -167,7 +206,7 @@ security(05-config-to-backend): 强制 sys_config 缓存键隔离
 - 新增功能 / 向下兼容 → 次版本号 +1（`0.X.0`）
 - 修复 / 小优化 → 修订号 +1（`0.0.X`）
 
-当前版本：`0.1.0`（首版）
+当前版本：`0.2.0`
 
 ---
 
@@ -179,9 +218,11 @@ security(05-config-to-backend): 强制 sys_config 缓存键隔离
 - [ ] 已读本文件 PROMPT.md，了解开发规范
 - [ ] 已浏览 [web-project-flow/](./web-project-flow/) 目录结构
 - [ ] 知道铁律三件套 `04 + 05 + 06` 的存在和强制加载时机
+- [ ] 知道 `/b` 快捷命令清单（11 个单提示词命令 + `/bhelp` 索引）
 - [ ] 知道 `/bhelp` 命令的输出格式
 - [ ] 知道路由表如何根据用户意图加载对应 reference
 - [ ] 知道禁止主动重构、禁止瞎猜、禁止编造
+- [ ] 知道本仓库**不维护** CHANGELOG/PROJECT/SPEC/TODO 四份文档（仅在 references/09 提示词中描述规范）
 
 **确认完毕后回复用户：**
 
