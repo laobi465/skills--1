@@ -53,7 +53,7 @@
 - 修改代码前先确认理解了原有逻辑
 - 保持现有代码风格和命名规范
 - 任何代码生成前先确认铁律已加载
-- 涉及需求变更时，按 [09-docs-lifecycle.md](./web-project-flow/references/09-docs-lifecycle.md) 联动更新四份文档
+- 涉及需求变更时，及时更新 [README.md](./README.md) 和 [PROMPT.md](./PROMPT.md)（如本仓库结构/能力有变化）
 - 完成任务后，主动告诉用户下一步可以做什么
 
 ---
@@ -133,18 +133,18 @@
 
 ---
 
-## 文档体系维护
+## 文档清单
 
-仓库维护以下核心文档，按 [09-docs-lifecycle.md](./web-project-flow/references/09-docs-lifecycle.md) 规范联动更新：
+本仓库维护以下文档：
 
-| 文档 | 路径 | 作用 |
-|---|---|---|
-| `README.md` | 仓库根 | 项目介绍、目录结构、使用方式（给人类看） |
-| `PROMPT.md` | 仓库根 | AI 对接引导、开发规范、路由表（给 AI 看） |
-| `CHANGELOG.md` | （按需创建） | 更新日志 |
-| `PROJECT.md` | （按需创建） | 项目文档 |
-| `SPEC.md` | （按需创建） | 规范文档 |
-| `TODO.md` | （按需创建） | 待办清单 |
+| 文档 | 路径 | 给谁看 | 作用 |
+|---|---|---|---|
+| `README.md` | 仓库根 | 人类 | 项目介绍、目录结构、使用方式 |
+| `PROMPT.md` | 仓库根 | AI | 本文件：AI 对接引导、铁律、路由表、命令规范 |
+| `SKILL.md` | `web-project-flow/` | AI | Skill 主入口：description、路由、命令清单 |
+| `references/` | `web-project-flow/` | AI | 11 份提示词原文 |
+
+> 注：`references/09-docs-lifecycle.md` 描述的四份文档（CHANGELOG/PROJECT/SPEC/TODO）规范**仅作为提示词内容保留**，本仓库不主动维护这四份文档。如需启用，按提示词内的规范创建即可。
 
 ---
 
@@ -206,7 +206,7 @@ security(05-config-to-backend): 强制 sys_config 缓存键隔离
 - 新增功能 / 向下兼容 → 次版本号 +1（`0.X.0`）
 - 修复 / 小优化 → 修订号 +1（`0.0.X`）
 
-当前版本：`0.1.0`（首版）
+当前版本：`0.2.0`
 
 ---
 
@@ -218,9 +218,11 @@ security(05-config-to-backend): 强制 sys_config 缓存键隔离
 - [ ] 已读本文件 PROMPT.md，了解开发规范
 - [ ] 已浏览 [web-project-flow/](./web-project-flow/) 目录结构
 - [ ] 知道铁律三件套 `04 + 05 + 06` 的存在和强制加载时机
+- [ ] 知道 `/b` 快捷命令清单（11 个单提示词命令 + `/bhelp` 索引）
 - [ ] 知道 `/bhelp` 命令的输出格式
 - [ ] 知道路由表如何根据用户意图加载对应 reference
 - [ ] 知道禁止主动重构、禁止瞎猜、禁止编造
+- [ ] 知道本仓库**不维护** CHANGELOG/PROJECT/SPEC/TODO 四份文档（仅在 references/09 提示词中描述规范）
 
 **确认完毕后回复用户：**
 
