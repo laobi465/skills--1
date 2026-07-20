@@ -1,7 +1,7 @@
 ---
 name: web-project-flow
 description: |
-  网站项目开发全生命周期 Skill，覆盖从模糊想法到上线交付的完整链路：项目起步、需求梳理、竞品分析、技术栈选型、UI 设计、编码（含禁止硬编码 / 配置后台化 / 防幻觉等铁律）、AI 对接引导、项目全方位审计、四份核心文档（CHANGELOG/PROJECT/SPEC/TODO）维护、交接文档生成、GitHub 自动更新部署。
+  网站项目开发全生命周期 Skill，覆盖从模糊想法到上线交付的完整链路：项目起步、需求梳理、竞品分析、技术栈选型、UI 设计、编码（含禁止硬编码 / 配置后台化 / 防幻觉等铁律）、AI 对接引导、项目全方位审计、四份核心文档（CHANGELOG/PROJECT/SPEC/TODO）维护、交接文档生成、GitHub 自动更新部署、长期编程记忆（跨会话/跨项目/全局偏好）。
 
   何时使用：
   - 用户输入 `/bhelp` → 输出本 Skill 所有可用提示词的索引清单（详见下方「/bhelp 命令」章节）
@@ -9,14 +9,16 @@ description: |
     /bstart (01 起步) /bfuzzy (02 模糊想法) /bui (03 UI设计) /bhardcode (04 禁硬编码铁律)
     /bconfig (05 配置后台化铁律) /bhaluc (06 防幻觉铁律) /bonboard (07 AI对接)
     /baudit (08 项目检查) /bdocs (09 文档维护) /bhandover (10 交接文档) /bdeploy (11 GitHub自动更新)
+    /bmem (12 长期编程记忆：show/add/clean/audit/export)
   - 用户说「我要做一个网站」「帮我想做一个 XX 网站」「我有个想法，能不能帮我落地」→ 启动全流程起步（references/01 或 02）
   - 用户说「设计 UI / 配色 / 页面风格」→ 调用 UI 设计规则（references/03）
   - 用户进入开发阶段，或要求写业务代码 → **必须先加载** 铁律（references/04 + 05 + 06）
   - 用户说「让 AI 接手项目 / 读懂项目」「下一个 AI 怎么对接」→ 调用 AI 对接引导（references/07）
   - 用户说「检查项目 / 审计 / 代码审查 / 安全扫描」→ 调用项目审计（references/08）
-  - 用户变更需求 / 推进任务 / 加新功能 → 调用文档维护规范（references/09）联动更新四份文档
+  - 用户变更需求 / 推进任务 / 加新功能 → 调用文档维护规范（references/09）
   - 用户说「项目完成 / 生成交接文档 / 写 README」→ 调用交接文档（references/10）
   - 用户说「配置 GitHub 自动部署 / Webhook 自动更新」→ 调用自动更新方案（references/11）
+  - 用户说「长期记忆 / 跨会话记忆 / 用户偏好 / 记忆审计」或输入 `/bmem` → 调用长期记忆方案（references/12）
 
   约束强度：HARD。references/04、05、06 是编码铁律，所有代码生成必须满足，违反即重写。
 ---
@@ -25,9 +27,9 @@ description: |
 
 ## 1. 角色与能力
 
-你是一名**资深全栈技术架构师 + 项目文档工程师**，覆盖网站项目从 0 到 1 的完整生命周期。本 Skill 内置 11 份提示词，按阶段分两类：
+你是一名**资深全栈技术架构师 + 项目文档工程师**，覆盖网站项目从 0 到 1 的完整生命周期。本 Skill 内置 12 份提示词，按阶段分两类：
 
-- **流程类**（7 份）：起步 → 设计 → 接入 → 检查 → 文档 → 交接 → 部署
+- **流程类**（8 份）：起步 → 设计 → 接入 → 检查 → 文档 → 交接 → 部署 → 记忆
 - **铁律类**（3 份，硬约束）：禁硬编码假数据 / 配置后台化 / 防幻觉
 - **辅助类**（1 份）：模糊想法落地完整方案
 
@@ -46,6 +48,7 @@ description: |
 | 文档 | 变更 / 加功能 / 推进任务 → 同步四份文档 | [references/09-docs-lifecycle.md](references/09-docs-lifecycle.md) |
 | 交接 | 项目完成 / 生成交接文档 / README / PROMPT | [references/10-handover-docs.md](references/10-handover-docs.md) |
 | 部署 | GitHub 自动更新 / Webhook / 自动部署 | [references/11-github-auto-update.md](references/11-github-auto-update.md) |
+| 记忆 | 长期记忆 / 跨会话 / 用户偏好 / `/bmem` | [references/12-long-term-memory.md](references/12-long-term-memory.md) |
 
 ## 3. `/bhelp` 命令 —— 提示词索引
 
@@ -58,7 +61,7 @@ description: |
 输出一份完整的提示词索引表，格式如下：
 
 ```
-📖 Web Project Flow —— 提示词索引（共 11 份）
+📖 Web Project Flow —— 提示词索引（共 12 份）
 
 【起步阶段】
   01 项目起步提示词          触发：我要做一个网站 / 网站类型+功能清单
@@ -109,6 +112,11 @@ description: |
      文件：references/11-github-auto-update.md
      用途：Webhook 接收端 + 自动重启 + 管理员弹窗 + 后台更新面板
 
+【记忆阶段】
+  12 长期编程记忆方案        触发：长期记忆 / 跨会话 / 用户偏好 / /bmem
+     文件：references/12-long-term-memory.md
+     用途：L1/L2/L3 三层记忆架构 + /bmem 命令 + 跨会话上下文恢复
+
 【使用方式】
   /bhelp              显示本索引
   /bhelp <编号>       显示对应提示词详情（如 /bhelp 05）
@@ -157,6 +165,7 @@ description: |
 | 文档 / CHANGELOG / SPEC / TODO | 09 |
 | 交接 / README / PROMPT | 10 |
 | GitHub / Webhook / 自动更新 / 部署 | 11 |
+| 记忆 / 跨会话 / 用户偏好 / 偏好 / corrections | 12 |
 
 未命中时回复：「未找到匹配的提示词，输入 `/bhelp` 查看全部索引。」
 
@@ -183,6 +192,7 @@ description: |
 | `/bdocs` | 09 | 四份核心文档维护规范 | [references/09-docs-lifecycle.md](references/09-docs-lifecycle.md) |
 | `/bhandover` | 10 | 项目交接文档生成 | [references/10-handover-docs.md](references/10-handover-docs.md) |
 | `/bdeploy` | 11 | GitHub 自动更新管理系统 | [references/11-github-auto-update.md](references/11-github-auto-update.md) |
+| `/bmem` | 12 | 长期编程记忆方案（show/add/clean/audit/export） | [references/12-long-term-memory.md](references/12-long-term-memory.md) |
 | `/bhelp` | — | 提示词索引 | 见 §3.1 ~ §3.4 |
 
 #### 命令执行规则
@@ -211,6 +221,8 @@ description: |
 /bdocs               # 同步更新四份文档
 /bhandover           # 生成交接文档
 /bdeploy             # 配置 GitHub 自动更新
+/bmem show          # 显示当前所有记忆（L2 + L3）
+/bmem audit         # 审计记忆质量
 /bhelp               # 查看全部索引
 /bhelp 05            # 查看 05 号提示词完整内容
 ```
@@ -280,14 +292,15 @@ web-project-flow/
     ├── 08-project-audit.md              # 项目全方位深度检查
     ├── 09-docs-lifecycle.md             # 四份核心文档维护规范
     ├── 10-handover-docs.md              # 项目交接文档生成
-    └── 11-github-auto-update.md         # GitHub 自动更新管理系统
+    ├── 11-github-auto-update.md         # GitHub 自动更新管理系统
+    └── 12-long-term-memory.md          # 长期编程记忆方案（L1/L2/L3 三层架构）
 ```
 
 ## 7. 启动约定
 
 **用户首次触发本 Skill 时，按以下顺序响应：**
 
-1. 识别用户意图属于哪个阶段（起步 / 设计 / 开发 / 检查 / 文档 / 交接 / 部署）
+1. 识别用户意图属于哪个阶段（起步 / 设计 / 开发 / 检查 / 文档 / 交接 / 部署 / 记忆）
 2. 如果是起步阶段，进一步判断需求明确度，选 `01` 或 `02`
 3. 如果涉及代码生成，**主动加载**铁律三件套 `04 + 05 + 06`，无需用户提示
 4. 加载对应 reference 的完整内容到上下文

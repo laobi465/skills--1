@@ -73,6 +73,7 @@
 | 文档 | 变更 / 加功能 → 同步四份文档 | [09-docs-lifecycle.md](./web-project-flow/references/09-docs-lifecycle.md) |
 | 交接 | 项目完成 / 生成 README / PROMPT | [10-handover-docs.md](./web-project-flow/references/10-handover-docs.md) |
 | 部署 | GitHub 自动更新 / Webhook | [11-github-auto-update.md](./web-project-flow/references/11-github-auto-update.md) |
+| 记忆 | 长期记忆 / 跨会话 / 用户偏好 / `/bmem` | [12-long-term-memory.md](./web-project-flow/references/12-long-term-memory.md) |
 
 ---
 
@@ -93,6 +94,7 @@
 | `/bdocs` | [09-docs-lifecycle.md](./web-project-flow/references/09-docs-lifecycle.md) | 文档维护规范 |
 | `/bhandover` | [10-handover-docs.md](./web-project-flow/references/10-handover-docs.md) | 交接文档生成 |
 | `/bdeploy` | [11-github-auto-update.md](./web-project-flow/references/11-github-auto-update.md) | GitHub 自动更新 |
+| `/bmem` | [12-long-term-memory.md](./web-project-flow/references/12-long-term-memory.md) | 长期编程记忆（show/add/clean/audit/export） |
 
 ### `/bhelp` 索引命令
 
@@ -126,6 +128,9 @@
 /bdocs                           # 同步更新四份文档
 /bhandover                       # 生成交接文档
 /bdeploy                         # 配置 GitHub 自动更新
+/bmem show                      # 显示当前所有记忆（L2 + L3）
+/bmem audit                     # 审计记忆质量
+/bmem add "偏好：变量用 camelCase"  # 手动添加全局记忆
 /bhelp                           # 查看全部索引
 /bhelp 05                        # 查看 05 号提示词完整内容
 /bhelp 硬编码                     # 关键词搜索
@@ -218,7 +223,8 @@ security(05-config-to-backend): 强制 sys_config 缓存键隔离
 - [ ] 已读本文件 PROMPT.md，了解开发规范
 - [ ] 已浏览 [web-project-flow/](./web-project-flow/) 目录结构
 - [ ] 知道铁律三件套 `04 + 05 + 06` 的存在和强制加载时机
-- [ ] 知道 `/b` 快捷命令清单（11 个单提示词命令 + `/bhelp` 索引）
+- [ ] 知道 `/b` 快捷命令清单（12 个单提示词命令 + `/bhelp` 索引 + `/bmem` 子命令）
+- [ ] 知道长期记忆三层架构（L1 即时 / L2 项目 / L3 全局）和读取顺序（L3 → L2 → L1）
 - [ ] 知道 `/bhelp` 命令的输出格式
 - [ ] 知道路由表如何根据用户意图加载对应 reference
 - [ ] 知道禁止主动重构、禁止瞎猜、禁止编造

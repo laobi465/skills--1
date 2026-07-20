@@ -11,9 +11,9 @@
 
 ## 简介
 
-`web-project-flow` 是一套覆盖**网站项目开发全生命周期**的 Skill，内置 11 份提示词，按阶段分三类：
+`web-project-flow` 是一套覆盖**网站项目开发全生命周期**的 Skill，内置 12 份提示词，按阶段分三类：
 
-- **流程类（7 份）**：起步 → 设计 → 接入 → 检查 → 文档 → 交接 → 部署
+- **流程类（8 份）**：起步 → 设计 → 接入 → 检查 → 文档 → 交接 → 部署 → 记忆
 - **铁律类（3 份，硬约束）**：禁硬编码假数据 / 配置后台化 / 防幻觉
 - **辅助类（1 份）**：模糊想法落地完整方案
 
@@ -37,12 +37,13 @@ web-project-flow/
     ├── 08-project-audit.md              # 项目全方位深度检查（5 维度）
     ├── 09-docs-lifecycle.md            # 四份核心文档维护规范
     ├── 10-handover-docs.md              # 项目交接文档生成
-    └── 11-github-auto-update.md         # GitHub 自动更新管理系统
+    ├── 11-github-auto-update.md         # GitHub 自动更新管理系统
+    └── 12-long-term-memory.md          # 长期编程记忆方案（L1/L2/L3 三层架构）
 ```
 
 ---
 
-## 11 份提示词一览
+## 12 份提示词一览
 
 | # | 名称 | 阶段 | 触发场景 |
 |---|---|---|---|
@@ -57,6 +58,7 @@ web-project-flow/
 | 09 | [四份核心文档维护规范](./web-project-flow/references/09-docs-lifecycle.md) | 文档 | 变更 / 加功能 → 同步文档 |
 | 10 | [项目交接文档生成](./web-project-flow/references/10-handover-docs.md) | 交接 | "项目完成 / 生成 README / PROMPT" |
 | 11 | [GitHub 自动更新管理系统](./web-project-flow/references/11-github-auto-update.md) | 部署 | "GitHub 自动更新 / Webhook" |
+| 12 | [长期编程记忆方案](./web-project-flow/references/12-long-term-memory.md) | 记忆 | "长期记忆 / 跨会话 / 用户偏好 / `/bmem`" |
 
 ---
 
@@ -89,6 +91,7 @@ web-project-flow/
 | `/bdocs` | 加载 09 文档维护规范 |
 | `/bhandover` | 加载 10 交接文档生成 |
 | `/bdeploy` | 加载 11 GitHub 自动更新 |
+| `/bmem` | 加载 12 长期编程记忆（show/add/clean/audit/export） |
 
 ### 方式三：`/bhelp` 命令索引
 
@@ -169,6 +172,38 @@ web-project-flow/
 用户：配置 GitHub 自动部署
   ↓ AI 加载 11-github-auto-update.md，输出 Webhook 接收端 + 后台面板 + 弹窗
 ```
+
+---
+
+## 长期记忆方案（L1/L2/L3 三层架构）
+
+[12-long-term-memory.md](./web-project-flow/references/12-long-term-memory.md) 实现跨会话/跨项目/全局的长期编程记忆：
+
+| 层级 | 范围 | 载体 | 失效 |
+|---|---|---|---|
+| **L1 即时** | 当前会话 | 对话历史 | 会话结束 |
+| **L2 项目** | 当前项目 | README / PROMPT / 文件注释 / `.trae/skills/` | 项目删除 |
+| **L3 全局** | 跨项目 | `~/.trae/skills/` / `~/.trae/rules/` / `~/.trae/config` | 永久 |
+
+**核心机制**：
+
+- **写入时机**：6 类触发事件（偏好 / 纠正 / 里程碑 / 铁律 / 代码 / 风格）
+- **读取顺序**：L3 全局 → L2 项目 → L1 即时
+- **冲突优先级**：用户最新指令 > L3 > L2 > L1
+- **失效策略**：半年未触发归档 / 项目删除清理 / 规则覆盖保留 1 版本
+
+**配套命令**（`/bmem` 前缀）：
+
+| 命令 | 作用 |
+|---|---|
+| `/bmem show` | 显示当前所有记忆（L2 + L3） |
+| `/bmem show global` | 仅显示全局记忆（L3） |
+| `/bmem show project` | 仅显示项目记忆（L2） |
+| `/bmem add <内容>` | 手动添加记忆（默认全局） |
+| `/bmem add project <内容>` | 添加项目级记忆 |
+| `/bmem clean` | 清理过期记忆（半年未触发） |
+| `/bmem audit` | 审计记忆质量，输出报告 |
+| `/bmem export` | 导出全部记忆为单个 md 文件 |
 
 ---
 
