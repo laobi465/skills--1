@@ -35,7 +35,7 @@
 
 | 文件 | 核心规则 |
 |---|---|
-| [04-no-hardcode-fake-data.md](./web-project-flow/references/04-no-hardcode-fake-data.md) | 禁硬编码（密钥/token/域名/IP/配置参数）；禁假数据；测试数据必须标注 `// 仅本地测试模拟` |
+| [04-no-hardcode-fake-data.md](./web-project-flow/references/04-no-hardcode-fake-data.md) | 禁硬编码（密钥/token/域名/IP/配置参数）；禁假数据；**禁占位符**（`// TODO`、`pass`、`...`、`Lorem Ipsum`、`your_api_key_here` 等），缺资料时显式失败（`throw new Error('待接入：XXX')`）；测试数据必须标注 `// 仅本地测试模拟` |
 | [05-config-to-backend.md](./web-project-flow/references/05-config-to-backend.md) | 所有可调参数走 `sys_config` 表 + `config('key', 'default')` 读取 + 缓存 + 后台可视化 |
 | [06-anti-hallucination.md](./web-project-flow/references/06-anti-hallucination.md) | 基于事实回答；存疑标注「待核实」；不确定的写法标注「需验证」；回答末尾说明可信度 |
 

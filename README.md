@@ -119,9 +119,11 @@ web-project-flow/
 
 凡涉及代码生成的会话，以下三份铁律会**强制加载**到上下文，违反即重写：
 
-1. **禁硬编码假数据** ([04](./web-project-flow/references/04-no-hardcode-fake-data.md))
+1. **禁硬编码假数据 / 禁占位符** ([04](./web-project-flow/references/04-no-hardcode-fake-data.md))
    - 禁硬编码密钥、token、域名、IP、配置参数
    - 禁编造不存在的接口地址、表名、字段、JSON 结构
+   - 禁占位符（`// TODO`、`pass`、`...`、`Lorem Ipsum`、`your_api_key_here` 等）
+   - 缺资料时必须显式失败（`throw new Error('待接入：XXX')`），不得用占位符糊弄
    - 测试数据必须标注 `// 仅本地测试模拟`，上线必须移除
 
 2. **配置后台化** ([05](./web-project-flow/references/05-config-to-backend.md))

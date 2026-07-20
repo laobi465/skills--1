@@ -79,7 +79,7 @@ description: |
 【编码铁律（HARD）】
   04 禁硬编码假数据          触发：写业务代码前 / 检查硬编码 / 是否有假数据
      文件：references/04-no-hardcode-fake-data.md
-     用途：6 条编码铁律，违反即重写
+     用途：10 条编码铁律（含禁占位符），违反即重写
   05 配置后台化 sys_config   触发：新增配置项 / 系统配置后台化
      文件：references/05-config-to-backend.md
      用途：所有可变参数走 sys_config 表 + 缓存 + 后台可视化编辑
@@ -269,7 +269,7 @@ description: |
 以下规则不可违反，违反需重写：
 
 1. **禁硬编码**：密钥、token、域名、账号、价格、IP、接口地址、配置参数必须抽离到配置文件 / 环境变量 / 数据库（详见 `references/04`）
-2. **禁假数据**：无真实文档时只预留空调用占位，不编造返回假数据；测试数据必须标注 `// 仅本地测试模拟`（详见 `references/04`）
+2. **禁假数据 / 禁占位符**：无真实文档时显式失败（`throw new Error('待接入：XXX')`），不编造返回假数据，不使用 `// TODO`/`pass`/`Lorem Ipsum`/`your_api_key_here` 等占位符；测试数据必须标注 `// 仅本地测试模拟`（详见 `references/04`）
 3. **配置后台化**：所有可调参数走 `sys_config` 表 + `config('key', 'default')` 读取 + 缓存 + 后台可视化编辑（详见 `references/05`）
 4. **防幻觉**：不确定说不知道；存疑标注「待核实」；代码不确定处标注「需验证」；回答末尾说明可信度（详见 `references/06`）
 5. **UI 禁用项**：禁 emoji / 禁毛玻璃 / 禁暗黑风格 / 禁夸张渐变（详见 `references/03`）
