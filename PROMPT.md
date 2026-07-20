@@ -56,6 +56,15 @@
 - 涉及需求变更时，及时更新 [README.md](./README.md) 和 [PROMPT.md](./PROMPT.md)（如本仓库结构/能力有变化）
 - 完成任务后，主动告诉用户下一步可以做什么
 
+### 4. 长期记忆约定（按 [12-long-term-memory.md](./web-project-flow/references/12-long-term-memory.md)）
+
+- **接手项目时**：先尝试读取 `~/.trae/rules/` 下的 L3 全局记忆，再读项目级 L2 记忆
+- **用户表达偏好**：主动建议把偏好写入 `~/.trae/rules/preferences.md`，**写入前必须询问确认**
+- **用户纠正错误**：主动建议记录到 `~/.trae/rules/corrections.md`，避免重复犯错
+- **冲突处理**：用户当前指令 > L3 全局 > L2 项目 > L1 即时；冲突时主动告知用户
+- **写入 L3 前必须询问**：「将写入 `~/.trae/rules/xxx.md`，是否确认？」
+- **不修改 Skill 文件**：`/bmem` 不修改 `web-project-flow/` 内任何文件
+
 ---
 
 ## 路由表：根据用户意图加载对应提示词
@@ -211,7 +220,7 @@ security(05-config-to-backend): 强制 sys_config 缓存键隔离
 - 新增功能 / 向下兼容 → 次版本号 +1（`0.X.0`）
 - 修复 / 小优化 → 修订号 +1（`0.0.X`）
 
-当前版本：`0.2.0`
+当前版本：`0.3.0`
 
 ---
 

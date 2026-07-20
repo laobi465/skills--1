@@ -4,7 +4,7 @@
 
 [![Skill](https://img.shields.io/badge/Skill-web--project--flow-blue)](./web-project-flow/SKILL.md)
 [![Constraints](https://img.shields.io/badge/Constraints-HARD-red)](./web-project-flow/references/04-no-hardcode-fake-data.md)
-[![Stages](https://img.shields.io/badge/Stages-11-green)](./web-project-flow/references/)
+[![Stages](https://img.shields.io/badge/Stages-12-green)](./web-project-flow/references/)
 [![License](https://img.shields.io/badge/License-MIT-lightgrey)](#license)
 
 ---
@@ -161,7 +161,7 @@ web-project-flow/
   ↓ AI 强制加载铁律三件套 04 + 05 + 06，然后写代码
 
 用户：加一个新功能：会员等级
-  ↓ AI 加载 09-docs-lifecycle.md，联动更新 CHANGELOG + PROJECT + SPEC + TODO
+  ↓ AI 加载 09-docs-lifecycle.md，提醒用户按规范同步项目文档
 
 用户：检查一下整个项目
   ↓ AI 加载 08-project-audit.md，5 维度扫描输出分级报告
@@ -171,6 +171,9 @@ web-project-flow/
 
 用户：配置 GitHub 自动部署
   ↓ AI 加载 11-github-auto-update.md，输出 Webhook 接收端 + 后台面板 + 弹窗
+
+用户：把这次的项目经验和我的偏好记下来，方便下次接手
+  ↓ AI 加载 12-long-term-memory.md，写入 L3 全局记忆 + L2 项目记忆
 ```
 
 ---
@@ -226,6 +229,7 @@ cp -r web-project-flow/ ~/.trae/skills/web-project-flow/
 - 团队希望统一 AI 编码规范（铁律约束）
 - 需要对现有项目做全方位审计
 - 配置 GitHub 自动化部署
+- **跨会话保留 AI 上下文和用户偏好（长期记忆）**
 
 ---
 
@@ -236,7 +240,7 @@ cp -r web-project-flow/ ~/.trae/skills/web-project-flow/
 | [README.md](./README.md) | 人类 | 项目介绍、目录结构、使用方式 |
 | [PROMPT.md](./PROMPT.md) | AI | AI 对接引导、铁律、路由表、命令规范 |
 | [web-project-flow/SKILL.md](./web-project-flow/SKILL.md) | AI | Skill 主入口（含 description、路由、命令清单） |
-| [web-project-flow/references/](./web-project-flow/references/) | AI | 11 份提示词原文 |
+| [web-project-flow/references/](./web-project-flow/references/) | AI | 12 份提示词原文 |
 
 ---
 
