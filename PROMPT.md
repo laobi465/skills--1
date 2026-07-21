@@ -94,7 +94,7 @@
 | 交接 | 项目完成 / 生成 README / PROMPT | [10-handover-docs.md](./web-project-flow/references/10-handover-docs.md) |
 | 部署 | GitHub 自动更新 / Webhook | [11-github-auto-update.md](./web-project-flow/references/11-github-auto-update.md) |
 | 记忆 | 长期记忆 / 跨会话 / 用户偏好 / `/bmem` | [12-long-term-memory.md](./web-project-flow/references/12-long-term-memory.md) |
-| 铁律 ④ | 按项目文档开发 / 严格遵循规范 / 对标源码风格 | [13-strict-doc-compliance.md](./web-project-flow/references/13-strict-doc-compliance.md) |
+| 铁律 ③ | 按项目文档开发 / 严格遵循规范 / 对标源码风格 | [13-strict-doc-compliance.md](./web-project-flow/references/13-strict-doc-compliance.md) |
 
 ---
 
