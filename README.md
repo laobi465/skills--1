@@ -4,17 +4,17 @@
 
 [![Skill](https://img.shields.io/badge/Skill-web--project--flow-blue)](./web-project-flow/SKILL.md)
 [![Constraints](https://img.shields.io/badge/Constraints-HARD-red)](./web-project-flow/references/04-no-hardcode-fake-data.md)
-[![Stages](https://img.shields.io/badge/Stages-13-green)](./web-project-flow/references/)
+[![Stages](https://img.shields.io/badge/Stages-12-green)](./web-project-flow/references/)
 [![License](https://img.shields.io/badge/License-MIT-lightgrey)](#license)
 
 ---
 
 ## 简介
 
-`web-project-flow` 是一套覆盖**网站项目开发全生命周期**的 Skill，内置 13 份提示词，按阶段分三类：
+`web-project-flow` 是一套覆盖**网站项目开发全生命周期**的 Skill，内置 12 份提示词，按阶段分三类：
 
 - **流程类（8 份）**：起步 → 设计 → 接入 → 检查 → 文档 → 交接 → 部署 → 记忆
-- **铁律类（4 份，硬约束）**：禁硬编码假数据 / 配置后台化 / 防幻觉 / 严格遵循项目文档规范
+- **铁律类（3 份，硬约束）**：禁硬编码假数据 / 防幻觉 / 严格遵循项目文档规范
 - **辅助类（1 份）**：模糊想法落地完整方案
 
 支持三种调用方式：**自然语言触发** + **`/b` 快捷命令** + **`/bhelp` 索引**。
@@ -31,20 +31,19 @@ web-project-flow/
     ├── 02-fuzzy-idea-to-plan.md          # 模糊想法落地 10 步流程
     ├── 03-ui-design-rules.md            # 现代简约 UI 设计规则
     ├── 04-no-hardcode-fake-data.md      # 铁律①：禁硬编码假数据
-    ├── 05-config-to-backend.md          # 铁律②：配置后台化（sys_config 表）
-    ├── 06-anti-hallucination.md         # 铁律③：防 AI 幻觉
+    ├── 06-anti-hallucination.md         # 铁律②：防 AI 幻觉
     ├── 07-ai-onboarding.md              # AI 对接新项目引导
     ├── 08-project-audit.md              # 项目全方位深度检查（5 维度）
     ├── 09-docs-lifecycle.md            # 四份核心文档维护规范
     ├── 10-handover-docs.md              # 项目交接文档生成
     ├── 11-github-auto-update.md         # GitHub 自动更新管理系统
     ├── 12-long-term-memory.md          # 长期编程记忆方案（L1/L2/L3 三层架构）
-    └── 13-strict-doc-compliance.md     # 铁律④：严格遵循项目文档规范
+    └── 13-strict-doc-compliance.md     # 铁律③：严格遵循项目文档规范
 ```
 
 ---
 
-## 13 份提示词一览
+## 12 份提示词一览
 
 | # | 名称 | 阶段 | 触发场景 |
 |---|---|---|---|
@@ -52,7 +51,6 @@ web-project-flow/
 | 02 | [模糊想法落地 10 步流程](./web-project-flow/references/02-fuzzy-idea-to-plan.md) | 起步 | "我有个想法 / 帮我落地" |
 | 03 | [现代简约 UI 设计规则](./web-project-flow/references/03-ui-design-rules.md) | 设计 | "设计 UI / 配色 / 页面风格" |
 | 04 | [禁硬编码假数据](./web-project-flow/references/04-no-hardcode-fake-data.md) | 铁律 HARD | 写业务代码前 / 检查硬编码 |
-| 05 | [配置后台化 sys_config](./web-project-flow/references/05-config-to-backend.md) | 铁律 HARD | 新增配置项 / 系统配置后台化 |
 | 06 | [防 AI 幻觉](./web-project-flow/references/06-anti-hallucination.md) | 铁律 HARD | 防止幻觉 / 待核实 |
 | 07 | [AI 对接新项目引导](./web-project-flow/references/07-ai-onboarding.md) | 接入 | "让 AI 接手 / 读懂项目" |
 | 08 | [项目全方位深度检查](./web-project-flow/references/08-project-audit.md) | 检查 | "项目检查 / 审计 / 安全扫描" |
@@ -86,15 +84,14 @@ web-project-flow/
 | `/bfuzzy` | 加载 02 模糊想法落地 10 步 |
 | `/bui` | 加载 03 UI 设计规则 |
 | `/bhardcode` | 加载 04 铁律①禁硬编码 |
-| `/bconfig` | 加载 05 铁律②配置后台化 |
-| `/bhaluc` | 加载 06 铁律③防幻觉 |
+| `/bhaluc` | 加载 06 铁律②防幻觉 |
 | `/bonboard` | 加载 07 AI 对接引导 |
 | `/baudit` | 加载 08 项目全方位检查 |
 | `/bdocs` | 加载 09 文档维护规范 |
 | `/bhandover` | 加载 10 交接文档生成 |
 | `/bdeploy` | 加载 11 GitHub 自动更新 |
 | `/bmem` | 加载 12 长期编程记忆（show/add/clean/audit/export） |
-| `/bstrict` | 加载 13 铁律④严格遵循项目文档规范 |
+| `/bstrict` | 加载 13 铁律③严格遵循项目文档规范 |
 
 ### 方式三：`/bhelp` 命令索引
 
@@ -102,7 +99,7 @@ web-project-flow/
 
 ```
 /bhelp              # 显示全部索引
-/bhelp 05           # 显示编号 05 的完整内容
+/bhelp 06           # 显示编号 06 的完整内容
 /bhelp 硬编码        # 按关键词搜索匹配的提示词
 /bhelp all          # 同 /bhelp
 ```
@@ -111,7 +108,7 @@ web-project-flow/
 
 ```
 /bstart /bui              # 起步 + UI 设计一次性加载
-/bhardcode /bconfig /bhaluc /bstrict   # 四铁律一次性加载
+/bhardcode /bhaluc /bstrict   # 三铁律一次性加载
 /bstart                   # 起步命令后自动连带加载除 /bonboard 外所有指令（详见 SKILL.md §3.8.2）
 ```
 
@@ -123,13 +120,13 @@ web-project-flow/
 
 ### 自动加载机制
 
-- **每次对话开始**：自动加载铁律四件套 `04 + 05 + 06 + 13` + `08`（审计）+ `09`（文档维护），无需用户提示
-- **`/bstart` / `/bfuzzy` 后**：除 `/bonboard`（07）外，自动连带加载所有其他指令（03/04/05/06/08/09/10/11/12/13）
-- **涉及代码生成的命令**（`/bstart`、`/bui`、`/bdeploy` 等）：自动连带加载铁律四件套 `04 + 05 + 06 + 13`
+- **每次对话开始**：自动加载铁律三件套 `04 + 06 + 13` + `08`（审计）+ `09`（文档维护），无需用户提示
+- **`/bstart` / `/bfuzzy` 后**：除 `/bonboard`（07）外，自动连带加载所有其他指令（03/04/06/08/09/10/11/12/13）
+- **涉及代码生成的命令**（`/bstart`、`/bui`、`/bdeploy` 等）：自动连带加载铁律三件套 `04 + 06 + 13`
 
-### 四份铁律
+### 三份铁律
 
-凡涉及代码生成的会话，以下四份铁律会**强制加载**到上下文，违反即重写：
+凡涉及代码生成的会话，以下三份铁律会**强制加载**到上下文，违反即重写：
 
 1. **禁硬编码假数据 / 禁占位符** ([04](./web-project-flow/references/04-no-hardcode-fake-data.md))
    - 禁硬编码密钥、token、域名、IP、配置参数
@@ -138,17 +135,12 @@ web-project-flow/
    - 缺资料时必须显式失败（`throw new Error('待接入：XXX')`），不得用占位符糊弄
    - 测试数据必须标注 `// 仅本地测试模拟`，上线必须移除
 
-2. **配置后台化** ([05](./web-project-flow/references/05-config-to-backend.md))
-   - 所有可调参数走 `sys_config` 表（含 6 个字段）
-   - 业务代码通过 `config('key', 'default')` 读取
-   - 缓存机制 + 后台可视化编辑 + 恢复默认值
-
-3. **防 AI 幻觉** ([06](./web-project-flow/references/06-anti-hallucination.md))
+2. **防 AI 幻觉** ([06](./web-project-flow/references/06-anti-hallucination.md))
    - 不确定说"不知道"，不编造
    - 存疑标注「待核实」
    - 回答末尾说明可信度
 
-4. **严格遵循项目文档规范** ([13](./web-project-flow/references/13-strict-doc-compliance.md))
+3. **严格遵循项目文档规范** ([13](./web-project-flow/references/13-strict-doc-compliance.md))
    - 写代码前必须读完 README / 接口文档 / 数据库结构 / 编码规范
    - 命名、分层、注释、异常格式、响应体完全对标现有源码
    - 错误码沿用项目已定义的枚举，禁止自创数字状态码
@@ -180,7 +172,7 @@ web-project-flow/
   ↓ AI 加载 03-ui-design-rules.md（按现代简约规则）
 
 用户：开始写代码吧
-  ↓ AI 强制加载铁律四件套 04 + 05 + 06 + 13，并按 13 号"读文档→提问→写代码"流程执行
+  ↓ AI 强制加载铁律三件套 04 + 06 + 13，并按 13 号"读文档→提问→写代码"流程执行
 
 用户：加一个新功能：会员等级
   ↓ AI 加载 09-docs-lifecycle.md，提醒用户按规范同步项目文档
