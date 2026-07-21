@@ -4,17 +4,17 @@
 
 [![Skill](https://img.shields.io/badge/Skill-web--project--flow-blue)](./web-project-flow/SKILL.md)
 [![Constraints](https://img.shields.io/badge/Constraints-HARD-red)](./web-project-flow/references/04-no-hardcode-fake-data.md)
-[![Stages](https://img.shields.io/badge/Stages-11-green)](./web-project-flow/references/)
+[![Stages](https://img.shields.io/badge/Stages-13-green)](./web-project-flow/references/)
 [![License](https://img.shields.io/badge/License-MIT-lightgrey)](#license)
 
 ---
 
 ## 简介
 
-`web-project-flow` 是一套覆盖**网站项目开发全生命周期**的 Skill，内置 11 份提示词，按阶段分三类：
+`web-project-flow` 是一套覆盖**网站项目开发全生命周期**的 Skill，内置 13 份提示词，按阶段分三类：
 
-- **流程类（7 份）**：起步 → 设计 → 接入 → 检查 → 文档 → 交接 → 部署
-- **铁律类（3 份，硬约束）**：禁硬编码假数据 / 配置后台化 / 防幻觉
+- **流程类（8 份）**：起步 → 设计 → 接入 → 检查 → 文档 → 交接 → 部署 → 记忆
+- **铁律类（4 份，硬约束）**：禁硬编码假数据 / 配置后台化 / 防幻觉 / 严格遵循项目文档规范
 - **辅助类（1 份）**：模糊想法落地完整方案
 
 支持三种调用方式：**自然语言触发** + **`/b` 快捷命令** + **`/bhelp` 索引**。
@@ -37,12 +37,14 @@ web-project-flow/
     ├── 08-project-audit.md              # 项目全方位深度检查（5 维度）
     ├── 09-docs-lifecycle.md            # 四份核心文档维护规范
     ├── 10-handover-docs.md              # 项目交接文档生成
-    └── 11-github-auto-update.md         # GitHub 自动更新管理系统
+    ├── 11-github-auto-update.md         # GitHub 自动更新管理系统
+    ├── 12-long-term-memory.md          # 长期编程记忆方案（L1/L2/L3 三层架构）
+    └── 13-strict-doc-compliance.md     # 铁律④：严格遵循项目文档规范
 ```
 
 ---
 
-## 11 份提示词一览
+## 13 份提示词一览
 
 | # | 名称 | 阶段 | 触发场景 |
 |---|---|---|---|
@@ -57,6 +59,8 @@ web-project-flow/
 | 09 | [四份核心文档维护规范](./web-project-flow/references/09-docs-lifecycle.md) | 文档 | 变更 / 加功能 → 同步文档 |
 | 10 | [项目交接文档生成](./web-project-flow/references/10-handover-docs.md) | 交接 | "项目完成 / 生成 README / PROMPT" |
 | 11 | [GitHub 自动更新管理系统](./web-project-flow/references/11-github-auto-update.md) | 部署 | "GitHub 自动更新 / Webhook" |
+| 12 | [长期编程记忆方案](./web-project-flow/references/12-long-term-memory.md) | 记忆 | "长期记忆 / 跨会话 / 用户偏好 / `/bmem`" |
+| 13 | [严格遵循项目文档规范](./web-project-flow/references/13-strict-doc-compliance.md) | 铁律 HARD | "按项目文档开发 / 严格遵循规范 / 对标源码风格" |
 
 ---
 
@@ -89,6 +93,8 @@ web-project-flow/
 | `/bdocs` | 加载 09 文档维护规范 |
 | `/bhandover` | 加载 10 交接文档生成 |
 | `/bdeploy` | 加载 11 GitHub 自动更新 |
+| `/bmem` | 加载 12 长期编程记忆（show/add/clean/audit/export） |
+| `/bstrict` | 加载 13 铁律④严格遵循项目文档规范 |
 
 ### 方式三：`/bhelp` 命令索引
 
@@ -105,7 +111,8 @@ web-project-flow/
 
 ```
 /bstart /bui              # 起步 + UI 设计一次性加载
-/bhardcode /bconfig /bhaluc   # 三铁律一次性加载
+/bhardcode /bconfig /bhaluc /bstrict   # 四铁律一次性加载
+/bstart                   # 起步命令后自动连带加载除 /bonboard 外所有指令（详见 SKILL.md §3.8.2）
 ```
 
 未识别的 `/bXXX` 命令 → 回复「未识别的命令，输入 `/bhelp` 查看所有可用命令」
@@ -114,11 +121,21 @@ web-project-flow/
 
 ## 核心铁律（HARD）
 
-凡涉及代码生成的会话，以下三份铁律会**强制加载**到上下文，违反即重写：
+### 自动加载机制
 
-1. **禁硬编码假数据** ([04](./web-project-flow/references/04-no-hardcode-fake-data.md))
+- **每次对话开始**：自动加载铁律四件套 `04 + 05 + 06 + 13` + `08`（审计）+ `09`（文档维护），无需用户提示
+- **`/bstart` / `/bfuzzy` 后**：除 `/bonboard`（07）外，自动连带加载所有其他指令（03/04/05/06/08/09/10/11/12/13）
+- **涉及代码生成的命令**（`/bstart`、`/bui`、`/bdeploy` 等）：自动连带加载铁律四件套 `04 + 05 + 06 + 13`
+
+### 四份铁律
+
+凡涉及代码生成的会话，以下四份铁律会**强制加载**到上下文，违反即重写：
+
+1. **禁硬编码假数据 / 禁占位符** ([04](./web-project-flow/references/04-no-hardcode-fake-data.md))
    - 禁硬编码密钥、token、域名、IP、配置参数
    - 禁编造不存在的接口地址、表名、字段、JSON 结构
+   - 禁占位符（`// TODO`、`pass`、`...`、`Lorem Ipsum`、`your_api_key_here` 等）
+   - 缺资料时必须显式失败（`throw new Error('待接入：XXX')`），不得用占位符糊弄
    - 测试数据必须标注 `// 仅本地测试模拟`，上线必须移除
 
 2. **配置后台化** ([05](./web-project-flow/references/05-config-to-backend.md))
@@ -130,6 +147,14 @@ web-project-flow/
    - 不确定说"不知道"，不编造
    - 存疑标注「待核实」
    - 回答末尾说明可信度
+
+4. **严格遵循项目文档规范** ([13](./web-project-flow/references/13-strict-doc-compliance.md))
+   - 写代码前必须读完 README / 接口文档 / 数据库结构 / 编码规范
+   - 命名、分层、注释、异常格式、响应体完全对标现有源码
+   - 错误码沿用项目已定义的枚举，禁止自创数字状态码
+   - 新增功能兼容旧逻辑，改动旧逻辑前必须告知风险
+   - 完成后主动自检合规校验清单
+   - 操作流程：**读文档 → 提问补缺 → 再写代码**
 
 ---
 
@@ -155,10 +180,10 @@ web-project-flow/
   ↓ AI 加载 03-ui-design-rules.md（按现代简约规则）
 
 用户：开始写代码吧
-  ↓ AI 强制加载铁律三件套 04 + 05 + 06，然后写代码
+  ↓ AI 强制加载铁律四件套 04 + 05 + 06 + 13，并按 13 号"读文档→提问→写代码"流程执行
 
 用户：加一个新功能：会员等级
-  ↓ AI 加载 09-docs-lifecycle.md，联动更新 CHANGELOG + PROJECT + SPEC + TODO
+  ↓ AI 加载 09-docs-lifecycle.md，提醒用户按规范同步项目文档
 
 用户：检查一下整个项目
   ↓ AI 加载 08-project-audit.md，5 维度扫描输出分级报告
@@ -168,7 +193,42 @@ web-project-flow/
 
 用户：配置 GitHub 自动部署
   ↓ AI 加载 11-github-auto-update.md，输出 Webhook 接收端 + 后台面板 + 弹窗
+
+用户：把这次的项目经验和我的偏好记下来，方便下次接手
+  ↓ AI 加载 12-long-term-memory.md，写入 L3 全局记忆 + L2 项目记忆
 ```
+
+---
+
+## 长期记忆方案（L1/L2/L3 三层架构）
+
+[12-long-term-memory.md](./web-project-flow/references/12-long-term-memory.md) 实现跨会话/跨项目/全局的长期编程记忆：
+
+| 层级 | 范围 | 载体 | 失效 |
+|---|---|---|---|
+| **L1 即时** | 当前会话 | 对话历史 | 会话结束 |
+| **L2 项目** | 当前项目 | README / PROMPT / 文件注释 / `.trae/skills/` | 项目删除 |
+| **L3 全局** | 跨项目 | `~/.trae/skills/` / `~/.trae/rules/` / `~/.trae/config` | 永久 |
+
+**核心机制**：
+
+- **写入时机**：6 类触发事件（偏好 / 纠正 / 里程碑 / 铁律 / 代码 / 风格）
+- **读取顺序**：L3 全局 → L2 项目 → L1 即时
+- **冲突优先级**：用户最新指令 > L3 > L2 > L1
+- **失效策略**：半年未触发归档 / 项目删除清理 / 规则覆盖保留 1 版本
+
+**配套命令**（`/bmem` 前缀）：
+
+| 命令 | 作用 |
+|---|---|
+| `/bmem show` | 显示当前所有记忆（L2 + L3） |
+| `/bmem show global` | 仅显示全局记忆（L3） |
+| `/bmem show project` | 仅显示项目记忆（L2） |
+| `/bmem add <内容>` | 手动添加记忆（默认全局） |
+| `/bmem add project <内容>` | 添加项目级记忆 |
+| `/bmem clean` | 清理过期记忆（半年未触发） |
+| `/bmem audit` | 审计记忆质量，输出报告 |
+| `/bmem export` | 导出全部记忆为单个 md 文件 |
 
 ---
 
@@ -191,6 +251,7 @@ cp -r web-project-flow/ ~/.trae/skills/web-project-flow/
 - 团队希望统一 AI 编码规范（铁律约束）
 - 需要对现有项目做全方位审计
 - 配置 GitHub 自动化部署
+- **跨会话保留 AI 上下文和用户偏好（长期记忆）**
 
 ---
 
@@ -201,7 +262,7 @@ cp -r web-project-flow/ ~/.trae/skills/web-project-flow/
 | [README.md](./README.md) | 人类 | 项目介绍、目录结构、使用方式 |
 | [PROMPT.md](./PROMPT.md) | AI | AI 对接引导、铁律、路由表、命令规范 |
 | [web-project-flow/SKILL.md](./web-project-flow/SKILL.md) | AI | Skill 主入口（含 description、路由、命令清单） |
-| [web-project-flow/references/](./web-project-flow/references/) | AI | 11 份提示词原文 |
+| [web-project-flow/references/](./web-project-flow/references/) | AI | 13 份提示词原文 |
 
 ---
 

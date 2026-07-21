@@ -8,11 +8,11 @@
 
 请按以下顺序阅读，完全理解后再回答用户问题：
 
-1. **先读 [README.md](./README.md)** —— 了解项目整体定位、目录结构、11 份提示词一览
+1. **先读 [README.md](./README.md)** —— 了解项目整体定位、目录结构、13 份提示词一览
 2. **再读本文件 [PROMPT.md](./PROMPT.md)** —— 了解开发规范和约定（铁律 / 路由 / 命令）
 3. **浏览 [web-project-flow/](./web-project-flow/)** 目录结构，搞清楚每个文件的作用
 4. **根据用户意图**，从下方「路由表」找到对应 reference 并加载完整内容到上下文
-5. **如果涉及代码生成**，必须主动加载「铁律三件套」`04 + 05 + 06`
+5. **如果涉及代码生成**，必须主动加载「铁律四件套」`04 + 05 + 06 + 13`
 
 ---
 
@@ -22,7 +22,7 @@
 
 - 入口文件：[web-project-flow/SKILL.md](./web-project-flow/SKILL.md)
 - 提示词库：[web-project-flow/references/](./web-project-flow/references/)
-- 提示词数量：11 份
+- 提示词数量：13 份
 - 约束强度：HARD（违反铁律需重写）
 
 ---
@@ -31,30 +31,52 @@
 
 ### 1. 必须遵守的铁律（HARD，违反即重写）
 
-涉及代码生成时，**强制加载**以下三份铁律到上下文：
+涉及代码生成时，**强制加载**以下四份铁律到上下文：
 
 | 文件 | 核心规则 |
 |---|---|
-| [04-no-hardcode-fake-data.md](./web-project-flow/references/04-no-hardcode-fake-data.md) | 禁硬编码（密钥/token/域名/IP/配置参数）；禁假数据；测试数据必须标注 `// 仅本地测试模拟` |
+| [04-no-hardcode-fake-data.md](./web-project-flow/references/04-no-hardcode-fake-data.md) | 禁硬编码（密钥/token/域名/IP/配置参数）；禁假数据；**禁占位符**（`// TODO`、`pass`、`...`、`Lorem Ipsum`、`your_api_key_here` 等），缺资料时显式失败（`throw new Error('待接入：XXX')`）；测试数据必须标注 `// 仅本地测试模拟` |
 | [05-config-to-backend.md](./web-project-flow/references/05-config-to-backend.md) | 所有可调参数走 `sys_config` 表 + `config('key', 'default')` 读取 + 缓存 + 后台可视化 |
 | [06-anti-hallucination.md](./web-project-flow/references/06-anti-hallucination.md) | 基于事实回答；存疑标注「待核实」；不确定的写法标注「需验证」；回答末尾说明可信度 |
+| [13-strict-doc-compliance.md](./web-project-flow/references/13-strict-doc-compliance.md) | 完全依照项目文档开发（README/接口文档/数据库结构/编码规范）；禁自创字段/路由/表名/返回格式；命名分层注释异常响应体对标现有源码；错误码沿用项目枚举；新增功能兼容旧逻辑；完成后自检合规清单；操作流程：读文档 → 提问补缺 → 写代码 |
+
+### 1.1 自动加载机制（每次对话 + 起步命令）
+
+- **每次对话开始**：自动加载铁律四件套 `04 + 05 + 06 + 13`，以及 `08`（审计）和 `09`（文档维护）到上下文，无需用户提示
+- **用户输入 `/bstart` 或 `/bfuzzy` 后**：除 `/bonboard`（07）外，自动连带加载所有其他指令（03/04/05/06/08/09/10/11/12/13），让 AI 规范生成代码
+- **涉及代码生成的命令**（`/bstart`、`/bui`、`/bdeploy` 等）：自动连带加载铁律四件套 `04 + 05 + 06 + 13`
+- **写代码前**：必须先读完用户提供的项目文档（README / 接口文档 / 数据库结构 / 编码规范），资料缺失立即列出清单询问用户，禁止脑补编造
 
 ### 2. 不要做的事
 
 - **不要**主动重构已有功能，只做用户要求的改动
 - **不要**瞎猜 —— 有疑问先问
 - **不要**编造不存在的 API、表名、字段、配置项
+- **不要**自创字段、路由、表名、返回格式、错误码
 - **不要**在 UI 中使用 emoji / 毛玻璃 / 暗黑风格 / 夸张渐变
 - **不要**跳过铁律直接写代码
+- **不要**使用占位符（`// TODO`、`pass`、`Lorem Ipsum`、`your_api_key_here` 等）
 - **不要**创建与本 Skill 无关的文件（如 `.md` 文档、`README` 等），除非用户明确要求
 
 ### 3. 必须做的事
 
+- 写代码前先读完项目文档（README / 接口文档 / 数据库结构 / 编码规范）
 - 修改代码前先确认理解了原有逻辑
-- 保持现有代码风格和命名规范
-- 任何代码生成前先确认铁律已加载
+- 保持现有代码风格和命名规范，完全对标现有源码
+- 错误码沿用项目已定义的枚举
+- 任何代码生成前先确认铁律四件套已加载
+- 完成代码后主动自检合规校验清单
 - 涉及需求变更时，及时更新 [README.md](./README.md) 和 [PROMPT.md](./PROMPT.md)（如本仓库结构/能力有变化）
 - 完成任务后，主动告诉用户下一步可以做什么
+
+### 4. 长期记忆约定（按 [12-long-term-memory.md](./web-project-flow/references/12-long-term-memory.md)）
+
+- **接手项目时**：先尝试读取 `~/.trae/rules/` 下的 L3 全局记忆，再读项目级 L2 记忆
+- **用户表达偏好**：主动建议把偏好写入 `~/.trae/rules/preferences.md`，**写入前必须询问确认**
+- **用户纠正错误**：主动建议记录到 `~/.trae/rules/corrections.md`，避免重复犯错
+- **冲突处理**：用户当前指令 > L3 全局 > L2 项目 > L1 即时；冲突时主动告知用户
+- **写入 L3 前必须询问**：「将写入 `~/.trae/rules/xxx.md`，是否确认？」
+- **不修改 Skill 文件**：`/bmem` 不修改 `web-project-flow/` 内任何文件
 
 ---
 
@@ -73,6 +95,8 @@
 | 文档 | 变更 / 加功能 → 同步四份文档 | [09-docs-lifecycle.md](./web-project-flow/references/09-docs-lifecycle.md) |
 | 交接 | 项目完成 / 生成 README / PROMPT | [10-handover-docs.md](./web-project-flow/references/10-handover-docs.md) |
 | 部署 | GitHub 自动更新 / Webhook | [11-github-auto-update.md](./web-project-flow/references/11-github-auto-update.md) |
+| 记忆 | 长期记忆 / 跨会话 / 用户偏好 / `/bmem` | [12-long-term-memory.md](./web-project-flow/references/12-long-term-memory.md) |
+| 铁律 ④ | 按项目文档开发 / 严格遵循规范 / 对标源码风格 | [13-strict-doc-compliance.md](./web-project-flow/references/13-strict-doc-compliance.md) |
 
 ---
 
@@ -93,12 +117,14 @@
 | `/bdocs` | [09-docs-lifecycle.md](./web-project-flow/references/09-docs-lifecycle.md) | 文档维护规范 |
 | `/bhandover` | [10-handover-docs.md](./web-project-flow/references/10-handover-docs.md) | 交接文档生成 |
 | `/bdeploy` | [11-github-auto-update.md](./web-project-flow/references/11-github-auto-update.md) | GitHub 自动更新 |
+| `/bmem` | [12-long-term-memory.md](./web-project-flow/references/12-long-term-memory.md) | 长期编程记忆（show/add/clean/audit/export） |
+| `/bstrict` | [13-strict-doc-compliance.md](./web-project-flow/references/13-strict-doc-compliance.md) | 铁律④严格遵循项目文档规范 |
 
 ### `/bhelp` 索引命令
 
 | 输入 | 行为 |
 |---|---|
-| `/bhelp` | 输出 11 份提示词完整索引表 |
+| `/bhelp` | 输出 13 份提示词完整索引表 |
 | `/bhelp all` | 同 `/bhelp` |
 | `/bhelp <编号>` | 输出对应编号的提示词完整内容 |
 | `/bhelp <关键词>` | 按关键词命中表输出匹配清单 |
@@ -106,11 +132,11 @@
 ### 执行规则
 
 1. **加载方式**：调用 Read 读取对应 `references/XX-xxx.md` 完整内容
-2. **加载后行为**：按提示词内指引开始执行（`/bstart` → 立即按模板对齐需求；`/baudit` → 立即询问项目路径）
+2. **加载后行为**：按提示词内指引开始执行（`/bstart` → 立即按模板对齐需求；`/baudit` → 立即询问项目路径；`/bstrict` → 立即按"读文档 → 提问 → 写代码"三步流程执行）
 3. **铁律叠加**：
-   - 输入 `/bhardcode` / `/bconfig` / `/bhaluc` 任一 → 该铁律进入本次会话硬约束
-   - 输入涉及代码生成的命令（`/bstart`、`/bui`、`/bdeploy` 等）→ **自动连带加载**铁律三件套 `04 + 05 + 06`
-4. **链式调用**：空格分隔，如 `/bstart /bui` 或 `/bhardcode /bconfig /bhaluc`
+   - 输入 `/bhardcode` / `/bconfig` / `/bhaluc` / `/bstrict` 任一 → 该铁律进入本次会话硬约束
+   - 输入涉及代码生成的命令（`/bstart`、`/bui`、`/bdeploy` 等）→ **自动连带加载**铁律四件套 `04 + 05 + 06 + 13`
+4. **链式调用**：空格分隔，如 `/bstart /bui` 或 `/bhardcode /bconfig /bhaluc /bstrict`
 5. **未识别命令**：输入的 `/bXXX` 不在清单内 → 回复「未识别的命令，输入 `/bhelp` 查看所有可用命令」
 6. **执行确认**：加载完成后主动告诉用户当前已加载哪份提示词，并简述下一步将做什么
 
@@ -120,14 +146,19 @@
 /bstart                          # 起步
 /bfuzzy                          # 模糊想法落地
 /bui                             # UI 设计
-/bhardcode /bconfig /bhaluc      # 三铁律一次性加载
+/bhardcode /bconfig /bhaluc /bstrict   # 四铁律一次性加载
+/bstrict                         # 严格遵循项目文档规范
 /bonboard                        # AI 接手新项目
 /baudit                          # 项目全方位检查
 /bdocs                           # 同步更新四份文档
 /bhandover                       # 生成交接文档
 /bdeploy                         # 配置 GitHub 自动更新
+/bmem show                      # 显示当前所有记忆（L2 + L3）
+/bmem audit                     # 审计记忆质量
+/bmem add "偏好：变量用 camelCase"  # 手动添加全局记忆
 /bhelp                           # 查看全部索引
 /bhelp 05                        # 查看 05 号提示词完整内容
+/bhelp 13                        # 查看 13 号铁律④完整内容
 /bhelp 硬编码                     # 关键词搜索
 ```
 
@@ -142,7 +173,7 @@
 | `README.md` | 仓库根 | 人类 | 项目介绍、目录结构、使用方式 |
 | `PROMPT.md` | 仓库根 | AI | 本文件：AI 对接引导、铁律、路由表、命令规范 |
 | `SKILL.md` | `web-project-flow/` | AI | Skill 主入口：description、路由、命令清单 |
-| `references/` | `web-project-flow/` | AI | 11 份提示词原文 |
+| `references/` | `web-project-flow/` | AI | 13 份提示词原文 |
 
 > 注：`references/09-docs-lifecycle.md` 描述的四份文档（CHANGELOG/PROJECT/SPEC/TODO）规范**仅作为提示词内容保留**，本仓库不主动维护这四份文档。如需启用，按提示词内的规范创建即可。
 
@@ -206,7 +237,7 @@ security(05-config-to-backend): 强制 sys_config 缓存键隔离
 - 新增功能 / 向下兼容 → 次版本号 +1（`0.X.0`）
 - 修复 / 小优化 → 修订号 +1（`0.0.X`）
 
-当前版本：`0.2.0`
+当前版本：`0.4.0`
 
 ---
 
@@ -217,11 +248,14 @@ security(05-config-to-backend): 强制 sys_config 缓存键隔离
 - [ ] 已读 README.md，了解项目定位
 - [ ] 已读本文件 PROMPT.md，了解开发规范
 - [ ] 已浏览 [web-project-flow/](./web-project-flow/) 目录结构
-- [ ] 知道铁律三件套 `04 + 05 + 06` 的存在和强制加载时机
-- [ ] 知道 `/b` 快捷命令清单（11 个单提示词命令 + `/bhelp` 索引）
+- [ ] 知道铁律四件套 `04 + 05 + 06 + 13` 的存在和强制加载时机
+- [ ] 知道 `/b` 快捷命令清单（13 个单提示词命令 + `/bhelp` 索引 + `/bmem` 子命令）
+- [ ] 知道自动加载机制：每次对话自动加载铁律四件套 + 08 + 09；`/bstart`/`/bfuzzy` 后自动加载除 `/bonboard` 外所有指令
+- [ ] 知道长期记忆三层架构（L1 即时 / L2 项目 / L3 全局）和读取顺序（L3 → L2 → L1）
 - [ ] 知道 `/bhelp` 命令的输出格式
 - [ ] 知道路由表如何根据用户意图加载对应 reference
-- [ ] 知道禁止主动重构、禁止瞎猜、禁止编造
+- [ ] 知道禁止主动重构、禁止瞎猜、禁止编造、禁止自创字段/路由/表名/错误码、禁止使用占位符
+- [ ] 知道写代码前必须先读完项目文档（README / 接口文档 / 数据库结构 / 编码规范），完成后必须自检合规清单
 - [ ] 知道本仓库**不维护** CHANGELOG/PROJECT/SPEC/TODO 四份文档（仅在 references/09 提示词中描述规范）
 
 **确认完毕后回复用户：**
