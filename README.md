@@ -235,6 +235,45 @@ cp -r web-project-flow/ ~/.trae/skills/web-project-flow/
 
 注册后通过自然语言或 `/bhelp` 命令触发。
 
+### 一键安装提示词（喂给 AI / AI Agent）
+
+把下面这段提示词**完整复制粘贴**给 TRAE / Claude / Cursor / Codex 等任意支持 Skill 的 AI，AI 会自动拉取仓库并完成注册：
+
+````markdown
+请帮我安装 web-project-flow Skill，按以下步骤执行：
+
+1. 克隆仓库到临时目录：
+   ```bash
+   git clone https://github.com/laobi465/skills--1.git /tmp/skills--1
+   ```
+
+2. 将 Skill 目录复制到 TRAE Skill 加载路径（如目录不存在则创建）：
+   ```bash
+   mkdir -p ~/.trae/skills/
+   cp -r /tmp/skills--1/web-project-flow/ ~/.trae/skills/web-project-flow/
+   ```
+
+3. 验证安装是否成功：
+   ```bash
+   ls -la ~/.trae/skills/web-project-flow/
+   ```
+   预期输出：`SKILL.md` + `references/` 目录（含 12 份 .md 提示词文件）。
+
+4. 清理临时文件：
+   ```bash
+   rm -rf /tmp/skills--1
+   ```
+
+5. 安装完成后，向我确认：
+   - 已成功加载 web-project-flow Skill（12 份提示词，3 份铁律 HARD）
+   - 铁律三件套 04 + 06 + 13 已自动加载到本次会话上下文
+   - 可用 `/bhelp` 查看索引，或直接说「我要做一个 XX 网站」触发起步流程
+
+执行过程中如有任何步骤失败，立即停止并报告错误原因，不要继续后续步骤，不要自行编造修复方案。
+````
+
+> **说明**：该提示词可直接粘贴给 AI Agent 执行；执行成功后无需额外配置，AI 会自动识别 Skill 并按 [PROMPT.md](./PROMPT.md) 约定加载铁律三件套。
+
 ---
 
 ## 适用场景
