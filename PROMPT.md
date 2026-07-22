@@ -37,7 +37,7 @@
 |---|---|
 | [04-no-hardcode-fake-data.md](./web-project-flow/references/04-no-hardcode-fake-data.md) | 禁硬编码（密钥/token/域名/IP/配置参数）；禁假数据；**禁占位符**（`// TODO`、`pass`、`...`、`Lorem Ipsum`、`your_api_key_here` 等），缺资料时显式失败（`throw new Error('待接入：XXX')`）；测试数据必须标注 `// 仅本地测试模拟` |
 | [06-anti-hallucination.md](./web-project-flow/references/06-anti-hallucination.md) | 基于事实回答；存疑标注「待核实」；不确定的写法标注「需验证」；回答末尾说明可信度 |
-| [13-strict-doc-compliance.md](./web-project-flow/references/13-strict-doc-compliance.md) | 完全依照项目文档开发（README/接口文档/数据库结构/编码规范）；禁自创字段/路由/表名/返回格式；命名分层注释异常响应体对标现有源码；错误码沿用项目枚举；新增功能兼容旧逻辑；完成后自检合规清单；写代码前必读 /bdocs /bui 规范并同步生成 PROJECT+SPEC+UI 文档；操作流程：读文档 → 提问补缺 → 读规范生成文档 → 写代码 |
+| [13-strict-doc-compliance.md](./web-project-flow/references/13-strict-doc-compliance.md) | 完全依照项目文档开发（README/接口文档/数据库结构/编码规范）；禁自创字段/路由/表名/返回格式；命名分层注释异常响应体对标现有源码；错误码沿用项目枚举；新增功能兼容旧逻辑；完成后自检合规清单；写代码前必读 /bdocs /bui 生成的 PROJECT+SPEC+UI 文档并按文档内容生成代码；操作流程：读文档 → 提问补缺 → 读 /bdocs /bui 生成的项目文档 → 按文档写代码并自检 |
 
 ### 1.1 自动加载机制（每次对话 + 起步命令）
 
@@ -129,7 +129,7 @@
 ### 执行规则
 
 1. **加载方式**：调用 Read 读取对应 `references/XX-xxx.md` 完整内容
-2. **加载后行为**：按提示词内指引开始执行（`/bstart` → 立即按模板对齐需求；`/baudit` → 立即询问项目路径；`/bstrict` → 立即按"读文档 → 提问 → 读 /bdocs /bui 规范生成文档 → 写代码"四步流程执行）
+2. **加载后行为**：按提示词内指引开始执行（`/bstart` → 立即按模板对齐需求；`/baudit` → 立即询问项目路径；`/bstrict` → 立即按"读文档 → 提问 → 读 /bdocs /bui 生成的项目文档 → 按文档写代码并自检"四步流程执行）
 3. **铁律叠加**：
    - 输入 `/bhardcode` / `/bhaluc` / `/bstrict` 任一 → 该铁律进入本次会话硬约束
    - 输入涉及代码生成的命令（`/bstart`、`/bui`、`/bdeploy` 等）→ **自动连带加载**铁律三件套 `04 + 06 + 13`
