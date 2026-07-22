@@ -34,7 +34,7 @@ web-project-flow/
     ├── 06-anti-hallucination.md         # 铁律②：防 AI 幻觉
     ├── 07-ai-onboarding.md              # AI 对接新项目引导
     ├── 08-project-audit.md              # 项目全方位深度检查（5 维度）
-    ├── 09-docs-lifecycle.md            # 四份核心文档维护规范
+    ├── 09-docs-lifecycle.md            # 两份核心文档维护规范
     ├── 10-handover-docs.md              # 项目交接文档生成
     ├── 11-github-auto-update.md         # GitHub 自动更新管理系统
     ├── 12-long-term-memory.md          # 长期编程记忆方案（L1/L2/L3 三层架构）
@@ -54,7 +54,7 @@ web-project-flow/
 | 06 | [防 AI 幻觉](./web-project-flow/references/06-anti-hallucination.md) | 铁律 HARD | 防止幻觉 / 待核实 |
 | 07 | [AI 对接新项目引导](./web-project-flow/references/07-ai-onboarding.md) | 接入 | "让 AI 接手 / 读懂项目" |
 | 08 | [项目全方位深度检查](./web-project-flow/references/08-project-audit.md) | 检查 | "项目检查 / 审计 / 安全扫描" |
-| 09 | [四份核心文档维护规范](./web-project-flow/references/09-docs-lifecycle.md) | 文档 | 变更 / 加功能 → 同步文档 |
+| 09 | [两份核心文档维护规范](./web-project-flow/references/09-docs-lifecycle.md) | 文档 | 变更 / 加功能 → 同步文档 |
 | 10 | [项目交接文档生成](./web-project-flow/references/10-handover-docs.md) | 交接 | "项目完成 / 生成 README / PROMPT" |
 | 11 | [GitHub 自动更新管理系统](./web-project-flow/references/11-github-auto-update.md) | 部署 | "GitHub 自动更新 / Webhook" |
 | 12 | [长期编程记忆方案](./web-project-flow/references/12-long-term-memory.md) | 记忆 | "长期记忆 / 跨会话 / 用户偏好 / `/bmem`" |

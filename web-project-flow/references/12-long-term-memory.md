@@ -65,7 +65,7 @@ stage: 记忆 / 跨会话上下文
 |---|---|---|---|
 | 用户表达偏好 | `~/.trae/rules/preferences.md` | 偏好项（命名/注释/代码风格） | P1 |
 | 用户纠正错误 | `~/.trae/rules/corrections.md` | 错误模式 + 正确做法 | P0 |
-| 项目里程碑完成 | `PROMPT.md` + `CHANGELOG.md` | 决策、变更、版本 | P1 |
+| 项目里程碑完成 | `PROMPT.md` + `PROJECT.md` + `SPEC.md` | 决策、变更、版本 | P1 |
 | 发现新铁律 | `references/` + `PROMPT.md` | 新规则 | P0 |
 | 代码生成 | 文件顶部注释 | 文件元信息 | P2 |
 | 用户定制风格 | `~/.trae/rules/style.md` | 代码风格偏好 | P1 |

@@ -90,7 +90,7 @@
 | 铁律 ② | 防止幻觉 / 待核实 | [06-anti-hallucination.md](./web-project-flow/references/06-anti-hallucination.md) |
 | AI 接入 | 让 AI 接手 / 读懂项目 | [07-ai-onboarding.md](./web-project-flow/references/07-ai-onboarding.md) |
 | 检查 | 项目检查 / 审计 / 安全扫描 | [08-project-audit.md](./web-project-flow/references/08-project-audit.md) |
-| 文档 | 变更 / 加功能 → 同步四份文档 | [09-docs-lifecycle.md](./web-project-flow/references/09-docs-lifecycle.md) |
+| 文档 | 变更 / 加功能 → 同步两份文档 | [09-docs-lifecycle.md](./web-project-flow/references/09-docs-lifecycle.md) |
 | 交接 | 项目完成 / 生成 README / PROMPT | [10-handover-docs.md](./web-project-flow/references/10-handover-docs.md) |
 | 部署 | GitHub 自动更新 / Webhook | [11-github-auto-update.md](./web-project-flow/references/11-github-auto-update.md) |
 | 记忆 | 长期记忆 / 跨会话 / 用户偏好 / `/bmem` | [12-long-term-memory.md](./web-project-flow/references/12-long-term-memory.md) |
@@ -147,7 +147,7 @@
 /bstrict                         # 严格遵循项目文档规范
 /bonboard                        # AI 接手新项目
 /baudit                          # 项目全方位检查
-/bdocs                           # 同步更新四份文档
+/bdocs                           # 同步更新两份文档
 /bhandover                       # 生成交接文档
 /bdeploy                         # 配置 GitHub 自动更新
 /bmem show                      # 显示当前所有记忆（L2 + L3）
@@ -172,7 +172,7 @@
 | `SKILL.md` | `web-project-flow/` | AI | Skill 主入口：description、路由、命令清单 |
 | `references/` | `web-project-flow/` | AI | 13 份提示词原文 |
 
-> 注：`references/09-docs-lifecycle.md` 描述的四份文档（CHANGELOG/PROJECT/SPEC/TODO）规范**仅作为提示词内容保留**，本仓库不主动维护这四份文档。如需启用，按提示词内的规范创建即可。
+> 注：`references/09-docs-lifecycle.md` 描述的两份文档（PROJECT + SPEC 规划/规范/开发流程）规范**仅作为提示词内容保留**，本仓库不主动维护这两份文档。如需启用，按提示词内的规范创建即可。
 
 ---
 
@@ -234,7 +234,7 @@ security(04-no-hardcode-fake-data): 强制密钥必须走环境变量
 - 新增功能 / 向下兼容 → 次版本号 +1（`0.X.0`）
 - 修复 / 小优化 → 修订号 +1（`0.0.X`）
 
-当前版本：`0.5.0`
+当前版本：`0.6.0`
 
 ---
 
@@ -253,7 +253,7 @@ security(04-no-hardcode-fake-data): 强制密钥必须走环境变量
 - [ ] 知道路由表如何根据用户意图加载对应 reference
 - [ ] 知道禁止主动重构、禁止瞎猜、禁止编造、禁止自创字段/路由/表名/错误码、禁止使用占位符
 - [ ] 知道写代码前必须先读完项目文档（README / 接口文档 / 数据库结构 / 编码规范），完成后必须自检合规清单
-- [ ] 知道本仓库**不维护** CHANGELOG/PROJECT/SPEC/TODO 四份文档（仅在 references/09 提示词中描述规范）
+- [ ] 知道本仓库**不维护** PROJECT + SPEC（规划/规范/开发流程）两份文档（仅在 references/09 提示词中描述规范）
 
 **确认完毕后回复用户：**
 

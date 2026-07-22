@@ -1,7 +1,7 @@
 ---
 name: web-project-flow
 description: |
-  网站项目开发全生命周期 Skill，覆盖从模糊想法到上线交付的完整链路：项目起步、需求梳理、竞品分析、技术栈选型、UI 设计、编码（含禁止硬编码 / 防幻觉 / 严格遵循项目文档规范等铁律）、AI 对接引导、项目全方位审计、四份核心文档（CHANGELOG/PROJECT/SPEC/TODO）维护、交接文档生成、GitHub 自动更新部署、长期编程记忆（跨会话/跨项目/全局偏好）。
+  网站项目开发全生命周期 Skill，覆盖从模糊想法到上线交付的完整链路：项目起步、需求梳理、竞品分析、技术栈选型、UI 设计、编码（含禁止硬编码 / 防幻觉 / 严格遵循项目文档规范等铁律）、AI 对接引导、项目全方位审计、两份核心文档（PROJECT + 规划/规范/开发流程 SPEC）维护、交接文档生成、GitHub 自动更新部署、长期编程记忆（跨会话/跨项目/全局偏好）。
 
   何时使用：
   - 用户输入 `/bhelp` → 输出本 Skill 所有可用提示词的索引清单（详见下方「/bhelp 命令」章节）
@@ -45,7 +45,7 @@ description: |
 | 编码铁律 2 | 防止幻觉 / 不确定 / 待核实 | [references/06-anti-hallucination.md](references/06-anti-hallucination.md) |
 | AI 接入 | 让 AI 接手 / 读懂项目 / 新 AI 对接 | [references/07-ai-onboarding.md](references/07-ai-onboarding.md) |
 | 检查 | 项目检查 / 审计 / 代码审查 / 安全扫描 | [references/08-project-audit.md](references/08-project-audit.md) |
-| 文档 | 变更 / 加功能 / 推进任务 → 同步四份文档 | [references/09-docs-lifecycle.md](references/09-docs-lifecycle.md) |
+| 文档 | 变更 / 加功能 / 推进任务 → 同步两份文档 | [references/09-docs-lifecycle.md](references/09-docs-lifecycle.md) |
 | 交接 | 项目完成 / 生成交接文档 / README / PROMPT | [references/10-handover-docs.md](references/10-handover-docs.md) |
 | 部署 | GitHub 自动更新 / Webhook / 自动部署 | [references/11-github-auto-update.md](references/11-github-auto-update.md) |
 | 记忆 | 长期记忆 / 跨会话 / 用户偏好 / `/bmem` | [references/12-long-term-memory.md](references/12-long-term-memory.md) |
@@ -99,9 +99,9 @@ description: |
      用途：安全/质量/性能/架构/运维 5 维度 + 分级标注 + 评分
 
 【文档维护】
-  09 四份核心文档维护规范    触发：变更 / 加功能 / 推进任务 → 同步四份文档
+  09 两份核心文档维护规范    触发：变更 / 加功能 / 推进任务 → 同步两份文档
      文件：references/09-docs-lifecycle.md
-     用途：CHANGELOG + PROJECT + SPEC + TODO 联动更新
+     用途：PROJECT + SPEC（规划/规范/开发流程）联动更新
 
 【交接阶段】
   10 项目交接文档生成        触发：项目完成 / 生成交接文档 / README / PROMPT
@@ -163,7 +163,7 @@ description: |
 | 幻觉 / 编造 / 待核实 / 不确定 | 06 |
 | 对接 / 接手 / 读懂 / 新 AI | 07 |
 | 检查 / 审计 / 安全 / 漏洞 / 性能 | 08 |
-| 文档 / CHANGELOG / SPEC / TODO | 09 |
+| 文档 / PROJECT / SPEC / 规划 / 规范 / 开发流程 | 09 |
 | 交接 / README / PROMPT | 10 |
 | GitHub / Webhook / 自动更新 / 部署 | 11 |
 | 记忆 / 跨会话 / 用户偏好 / 偏好 / corrections | 12 |
@@ -190,7 +190,7 @@ description: |
 | `/bhaluc` | 06 | 铁律②：防 AI 幻觉 | [references/06-anti-hallucination.md](references/06-anti-hallucination.md) |
 | `/bonboard` | 07 | AI 对接新项目引导 | [references/07-ai-onboarding.md](references/07-ai-onboarding.md) |
 | `/baudit` | 08 | 项目全方位深度检查 | [references/08-project-audit.md](references/08-project-audit.md) |
-| `/bdocs` | 09 | 四份核心文档维护规范 | [references/09-docs-lifecycle.md](references/09-docs-lifecycle.md) |
+| `/bdocs` | 09 | 两份核心文档维护规范 | [references/09-docs-lifecycle.md](references/09-docs-lifecycle.md) |
 | `/bhandover` | 10 | 项目交接文档生成 | [references/10-handover-docs.md](references/10-handover-docs.md) |
 | `/bdeploy` | 11 | GitHub 自动更新管理系统 | [references/11-github-auto-update.md](references/11-github-auto-update.md) |
 | `/bmem` | 12 | 长期编程记忆方案（show/add/clean/audit/export） | [references/12-long-term-memory.md](references/12-long-term-memory.md) |
@@ -221,7 +221,7 @@ description: |
 /bstrict             # 加载铁律③严格遵循项目文档规范
 /bonboard            # AI 接手新项目
 /baudit              # 项目全方位检查
-/bdocs               # 同步更新四份文档
+/bdocs               # 同步更新两份文档
 /bhandover           # 生成交接文档
 /bdeploy             # 配置 GitHub 自动更新
 /bmem show          # 显示当前所有记忆（L2 + L3）
@@ -238,7 +238,7 @@ description: |
    - 用户只有零散想法 → 走 `references/02` 10 步流程，先列标准化提问清单
 2. **完成需求对齐后**：进入 UI 设计阶段 → 加载 `references/03`
 3. **进入开发阶段前**：**强制加载**铁律三件套 `references/04 + 06 + 13`，作为本次会话的硬约束上下文
-4. **代码提交后**：每次需求变更 / 任务推进 → 走 `references/09` 联动更新四份文档
+4. **代码提交后**：每次需求变更 / 任务推进 → 走 `references/09` 联动更新两份文档
 5. **项目收尾**：走 `references/10` 生成交接文档
 6. **部署阶段**：走 `references/11` 配置 GitHub 自动更新
 
@@ -257,7 +257,7 @@ description: |
   - `references/06-anti-hallucination.md` —— 防幻觉、不确定标注"待核实"
   - `references/13-strict-doc-compliance.md` —— 严格遵循项目文档规范、写代码前必读文档
 - 项目审计：`references/08-project-audit.md` —— 5 维度检查规范
-- 文档维护：`references/09-docs-lifecycle.md` —— 变更必须同步四份文档
+- 文档维护：`references/09-docs-lifecycle.md` —— 变更必须同步两份文档
 
 **目的**：让 AI 在每次对话中始终具备"规范生成代码"的能力，任何代码生成动作都受这 5 份提示词约束，违反任一即重写。
 
@@ -297,7 +297,7 @@ description: |
 | 设计 | 项目类型 / 设计调性 | 配色方案 / 字体 / 排版 / 组件规范 |
 | 开发 | 业务需求 | 业务代码 + 接口代码（按铁律 04 + 06 + 13 交付） |
 | 检查 | 项目代码 / 路径 / 关键代码片段 | 分级问题清单（严重/警告/建议）+ 根因 + 修复方案 + 评分 |
-| 文档 | 项目变更信息 | CHANGELOG + PROJECT + SPEC + TODO 四份联动文档 |
+| 文档 | 项目变更信息 | PROJECT + SPEC（规划/规范/开发流程）两份联动文档 |
 | 交接 | 项目代码 | README.md + PROMPT.md + 文件顶部注释 |
 | 部署 | 技术栈 | Webhook 接收端 + 自动更新脚本 + 后台面板 + 弹窗组件 + 表结构 + 部署指南 |
 
@@ -309,7 +309,7 @@ description: |
 2. **禁假数据 / 禁占位符**：无真实文档时显式失败（`throw new Error('待接入：XXX')`），不编造返回假数据，不使用 `// TODO`/`pass`/`Lorem Ipsum`/`your_api_key_here` 等占位符；测试数据必须标注 `// 仅本地测试模拟`（详见 `references/04`）
 3. **防幻觉**：不确定说不知道；存疑标注「待核实」；代码不确定处标注「需验证」；回答末尾说明可信度（详见 `references/06`）
 4. **UI 禁用项**：禁 emoji / 禁毛玻璃 / 禁暗黑风格 / 禁夸张渐变（详见 `references/03`）
-5. **文档联动**：任何变更必须按 `references/09` 同步更新四份文档，版本号按语义化递增
+5. **文档联动**：任何变更必须按 `references/09` 同步更新两份文档，版本号按语义化递增
 6. **审计覆盖**：项目检查必须覆盖安全/质量/性能/架构/运维 5 个维度，缺一不可（详见 `references/08`）
 7. **严格遵循项目文档规范**：写代码前必须读完 README / 接口文档 / 数据库结构 / 编码规范；命名、分层、注释、异常格式、响应体完全对标现有源码；错误码沿用项目枚举；新增功能兼容旧逻辑；完成后主动自检合规校验清单（详见 `references/13`）
 
@@ -326,7 +326,7 @@ web-project-flow/
     ├── 06-anti-hallucination.md         # 铁律：防 AI 幻觉
     ├── 07-ai-onboarding.md              # AI 对接新项目引导
     ├── 08-project-audit.md              # 项目全方位深度检查
-    ├── 09-docs-lifecycle.md             # 四份核心文档维护规范
+    ├── 09-docs-lifecycle.md             # 两份核心文档维护规范
     ├── 10-handover-docs.md              # 项目交接文档生成
     ├── 11-github-auto-update.md         # GitHub 自动更新管理系统
     ├── 12-long-term-memory.md          # 长期编程记忆方案（L1/L2/L3 三层架构）
